@@ -66,6 +66,8 @@ blob_fixups: blob_fixups_user_type = {
         .clear_symbol_version('remote_handle_invoke')
         .clear_symbol_version('remote_handle_open')
         .clear_symbol_version('remote_register_buf_attr'),
+    ('vendor/lib/hw/audio.primary.sm6150.so', 'vendor/lib/libaudioroute_ext.so'): blob_fixup()
+        .replace_needed('libaudioroute.so', 'libaudioroute-v34.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
