@@ -55,6 +55,8 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed("libui_shim.so"),
     ('vendor/lib64/mediadrm/libwvdrmengine.so', 'vendor/lib64/libwvhidl.so'): blob_fixup()
         .add_needed("libcrypto_shim.so"),
+    'vendor/lib64/camera/components/com.vidhance.node.eis.so': blob_fixup()
+        .replace_needed('libui.so', 'libui-v34.so'),
     ('vendor/lib64/libalAILDC.so', 'vendor/lib64/libalLDC.so', 'vendor/lib64/libalhLDC.so'): blob_fixup()
         .clear_symbol_version('AHardwareBuffer_allocate')
         .clear_symbol_version('AHardwareBuffer_describe')
