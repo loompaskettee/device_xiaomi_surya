@@ -1,47 +1,27 @@
-/*
- * Copyright (C) 2019-2020 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+#pragma once
 
-#ifndef VENDOR_LINEAGE_LIVEDISPLAY_V2_1_ADAPTIVEBACKLIGHT_H
-#define VENDOR_LINEAGE_LIVEDISPLAY_V2_1_ADAPTIVEBACKLIGHT_H
+#include <aidl/vendor/lineage/livedisplay/BnAdaptiveBacklight.h>
+#include <android-base/file.h>
+#include <android-base/logging.h>
+#include <android-base/strings.h>
 
-#include <hidl/MQDescriptor.h>
-#include <hidl/Status.h>
-#include <vendor/lineage/livedisplay/2.1/IAdaptiveBacklight.h>
-
+namespace aidl {
 namespace vendor {
 namespace lineage {
 namespace livedisplay {
-namespace V2_1 {
-namespace implementation {
 
-using ::android::sp;
-using ::android::hardware::Return;
-using ::android::hardware::Void;
-
-class AdaptiveBacklight : public IAdaptiveBacklight {
+class AdaptiveBacklight : public BnAdaptiveBacklight {
   public:
-    // Methods from ::vendor::lineage::livedisplay::V2_1::IAdaptiveBacklight follow.
-    Return<bool> isEnabled() override;
-    Return<bool> setEnabled(bool enabled) override;
+    // Methods from BnAdaptiveBacklight
+    ndk::ScopedAStatus getEnabled(bool* _aidl_return) override;
+    ndk::ScopedAStatus setEnabled(bool enabled) override;
+
+  private:
+    static constexpr const char* kCabcStatusPath =
+        "/sys/devices/platform/soc/soc:qcom,dsi-display/cabc";
 };
 
-}  // namespace implementation
-}  // namespace V2_1
 }  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor
-
-#endif  // VENDOR_LINEAGE_LIVEDISPLAY_V2_1_ADAPTIVEBACKLIGHT_H
+}  // namespace aidl
