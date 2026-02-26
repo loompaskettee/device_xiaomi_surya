@@ -211,7 +211,7 @@ PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay-service.xiaomi_sm6150
 
 # Media
-$(call soong_config_set,stagefright,target_disable_thumbnail_block_model,true)
+$(call soong_config_set_bool,stagefright,target_disable_thumbnail_block_model,true)
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
